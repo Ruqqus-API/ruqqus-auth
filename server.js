@@ -9,18 +9,11 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(helmet());
-
-/*
-app.get("/", (request, response) => {
-  console.log(path.dirname(require.main.filename))
-  throw("500 Internal Server Error")
-});
-*/
+//app.use(helmet());
 
 require('./routes')(app);
 require('./helpers/error_handler')(app);
 
-const listener = app.listen(process.env.PORT, () => {
+const listener = app.listen(process.env.PORT || 3000, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });
