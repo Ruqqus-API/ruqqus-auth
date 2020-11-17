@@ -8,12 +8,14 @@ app.set('views', [path.join(__dirname, 'views'), path.join(__dirname, 'views/par
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-//app.use(helmet());
+
 
 require('./routes')(app);
 require('./helpers/error_handler')(app);
 
+app.use(helmet());
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });

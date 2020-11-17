@@ -11,12 +11,14 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "ejs": "^3.1.5",
-    "helmet": "^4.2.0",
     "body-parser": "^1.19.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "helmet": "^4.2.0",
+    "needle": "^2.5.2",
     "path": "^0.12.7",
-    "ruqqus-js": "^3.1.0"
+    "ruqqus-js": "^3.1.0",
+    "uuid": "^8.3.1"
   },
   "engines": {
     "node": "12.x"

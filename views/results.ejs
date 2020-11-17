@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<%- include('partials/head'); -%>
+
+
+<body>
+	<%- include('partials/nav'); -%>
+	<main>
+		<div class="container pt-5">
+			<div class="row">
+				<div class="col-12">
+					<% if(typeof(data) !== 'undefined') { %>
+					<h3>Success!</h3>
+					<p>Here are your app's tokens:</p>
+
+					<form>
+						<div class="form-group">
+							<label for="access_token">ACCESS TOKEN</label>
+							<input type="text" class="form-control" id="access_token" name="access_token"
+								aria-describedby="access_token" value="<%= data.access_token %>" disabled>
+						</div>
+						<div class="form-group">
+							<label for="refresh_token">REFRESH TOKEN</label>
+							<input type="text" class="form-control" id="refresh_token" name="refresh_token"
+								aria-describedby="refresh_token" value="<%= data.refresh_token %>" disabled>
+						</div>
+						<div class="form-group">
+							<label for="scope_list">SCOPES</label>
+							<input type="text" class="form-control" id="scope_list" name="scope_list"
+								aria-describedby="scope_list" value="<%= data.scopes %>" disabled>
+						</div>
+						<div class="form-group">
+							<label for="expires_at">EXPIRES AT</label>
+							<input type="text" class="form-control" id="expires_at" name="expires_at"
+								aria-describedby="expires_at" value="<%= data.expires_at %>" disabled>
+						</div>
+					</form>
+					<% } %>
+
+				</div>
+			</div>
+
+		</div>
+
+	</main>
+</body>
+
+</html>
