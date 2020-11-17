@@ -49,8 +49,10 @@
 						</div>
 						<div class="form-group">
 							<label for="redirect_uri">REDIRECT URI</label>
-							<input type="text" class="form-control" id="redirect_uri" name="redirect_uri"
-								value="https://ruqqus-auth.glitch.me/redirect" disabled>
+							<input type="text" class="form-control copy-link" id="redirect_uri" name="redirect_uri"
+								value="https://ruqqus-auth.glitch.me/redirect"
+								data-clipboard-text="https://ruqqus-auth.glitch.me/redirect" role="button"
+								readonly="readonly">
 							<small id="redirect_uri_help" class="form-text text-muted">In order for this website to work
 								you need to add this redirect uri to your app's redirect uri's list.</small>
 						</div>
@@ -59,14 +61,14 @@
 							<input type="text" class="form-control" id="scope_list" name="scope_list"
 								aria-describedby="scope_list_help" placeholder="identity, create, read...." required>
 							<small id="scope_list_help" class="form-text text-muted"><a data-toggle="collapse"
-									href="#showScopes" role="button" aria-expanded="false" aria-controls="showScopes">
+									href="#showScopes" aria-expanded="false" aria-controls="showScopes">
 									See
 								</a> all of the available scopes.</small>
 							<div class="collapse" id="showScopes">
-								
-									<input type="text" class="form-control" id="redirect_uri"
-								value="identity, create, read, update, delete, vote, guildmaster" disabled>
-								
+
+								<input type="text" class="form-control" id="redirect_uri"
+									value="identity, create, read, update, delete, vote, guildmaster" disabled>
+
 							</div>
 						</div>
 
@@ -99,11 +101,12 @@
 						<button type="submit" class="btn btn-primary">Submit</button>
 					</form>
 
+
+
 				</div>
 			</div>
 
-		</div>
-
+			<%- include('partials/copied'); -%>
 	</main>
 </body>
 
