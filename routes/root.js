@@ -21,7 +21,7 @@ module.exports = {
 				id: client_id,
 				redirect: "https://ruqqus-auth.glitch.me/redirect",
 				state: state_token,
-				scopes: scope_list,
+				scopes: scope_list.replace(/\s+/g, ''),
 				permanent: true
 			}));
 		});
@@ -39,6 +39,7 @@ module.exports = {
 
 			needle.post('https://ruqqus.com/oauth/grant', r, function (err, resp, body) {
 				if (err) throw (err);
+				body.expires_at = new Date(body.expires_at * 1000)
 				temp.splice(temp.indexOf(data), 1);
 				res.render("results", { data: body });
 			});
