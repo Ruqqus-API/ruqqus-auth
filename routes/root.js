@@ -26,6 +26,23 @@ module.exports = {
 			}));
 		});
 
+		router.post("/refresh", (req, res) => {
+			const { client_secret, client_id, refresh_token } = req.body;
+
+			var r = {
+				client_id: client_id,
+				client_secret: client_secret,
+				grant_type: 'refresh',
+				refresh_token: refresh_token,
+			}
+
+			needle.post('https://ruqqus.com/oauth/grant', r, function (err, resp, body) {
+				if (err) throw (err);
+				body.expires_at = new Date(body.expires_at * 1000)
+				res.render("results", { data: body });
+			});
+		})
+
 		router.get("/redirect", (req, res) => {
 			const { code, state } = req.query
 			var data = temp.find(d => d.uuid == state);
