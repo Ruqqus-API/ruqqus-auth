@@ -13,7 +13,6 @@ body {
 	padding-bottom: 5vh;
 }
 
-
 .container.header {
 	height: 100vh;
 	width: 100vw;
@@ -36,6 +35,29 @@ body {
 	width: auto;
 	padding: 30px;
 	margin-bottom: 10px;
-
 	background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.btn-primary {
+	background-color: #FFF;
+	color: #805AD5;
+	border-color: #805AD5;
+}
+
+.btn-secondary {
+	background-color: #805AD5;
+	color: #FFF;
+	border-color: #805AD5;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+	background-color: #6f42c1;
+	color: #FFF;
+	border-color: #805AD5;
+}
+
+.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active, .btn-secondary.active, .open .dropdown-toggle.btn-secondary {
+	background-color: #6f42c1;
+	color: #FFF;
+	border-color: #805AD5;
 }

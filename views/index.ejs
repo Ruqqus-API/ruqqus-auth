@@ -20,6 +20,8 @@
 			<hr>
 			<br>
 			<p class="text-white">Automatic and secure way to get <strong>ruqqus</strong> api authentication token</p>
+			<a href="#getTokens" class="btn btn-primary">Get Access Token</a>
+			<a href="#refreshToken" class="btn btn-secondary">Refresh Access Token</a>
 		</div>
 	</div>
 	</div>
@@ -30,7 +32,7 @@
 	<main>
 		<div class="container pt-5">
 			<div class="row">
-				<div class="col-12 card automatic">
+				<div class="col-12 card automatic" id="getTokens">
 					<h3>Get your access tokens</h3>
 					<p>Input your app's info. Don't worry, none of the info is stored.</p>
 
@@ -73,7 +75,7 @@
 
 				</div>
 				<hr>
-				<div class="col-12 card automatic">
+				<div class="col-12 card automatic" id="refreshToken">
 					<h3>Refresh your expired access token</h3>
 					<p>Once your access token expires you need to refresh it, we also have a way to do that!</p>
 
@@ -86,7 +88,12 @@
 						<div class="form-group">
 							<label for="client_secret">CLIENT SECRET</label>
 							<input type="text" class="form-control" id="client_secret" name="client_secret"
-								aria-describedby="emaclient_secret_help" placeholder="Enter CLIENT SECRET">
+								aria-describedby="client_secret_help" placeholder="Enter CLIENT SECRET">
+						</div>
+						<div class="form-group">
+							<label for="refresh_token">REFRESH TOKEN</label>
+							<input type="text" class="form-control" id="refresh_token" name="refresh_token"
+								aria-describedby="refresh_token_help" placeholder="Enter REFRESH TOKEN">
 						</div>
 
 						<button type="submit" class="btn btn-primary">Submit</button>
