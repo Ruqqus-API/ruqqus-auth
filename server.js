@@ -10,8 +10,6 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
-
 require('./routes')(app);
 require('./helpers/error_handler')(app);
 
@@ -20,8 +18,7 @@ app.use(function (err, req, res, next) {
 	res.status(500).render('errors/500')
 });
 
-
 app.use(helmet());
 const listener = app.listen(process.env.PORT || 3000, () => {
-  console.log("Your app is listening on port " + listener.address().port);
+  console.log("Listening on port " + listener.address().port);
 });
