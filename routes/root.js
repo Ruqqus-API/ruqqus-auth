@@ -3,7 +3,6 @@ const { v4: uuidv4 } = require('uuid');
 const needle = require('needle');
 
 const temp = []
-const unixEpoch = Math.floor(new Date().getTime() / 1000)
 
 module.exports = {
 	path: "/",
@@ -15,7 +14,7 @@ module.exports = {
 			const state_token = uuidv4();
 			const { client_secret, client_id, scope_list } = req.body;
 
-			temp.push({ uuid: state_token, client_secret: client_secret, client_id: client_id, timestamp: unixEpoch })
+			temp.push({ uuid: state_token, client_secret: client_secret, client_id: client_id, timestamp: unixEpoch() })
 
 			res.redirect(getAuthURL({
 				id: client_id,
@@ -64,3 +63,20 @@ module.exports = {
 		return router;
 	},
 };
+
+
+function unixEpoch(){
+	return Math.floor(new Date().getTime() / 1000)
+}
+
+// Every minute check if the user session expired, if so delete it (user session lasts for 5 minutes)
+const minutes = 1, the_interval = minutes * 60 * 1000;
+setInterval(function () {
+	console.log("check")
+	temp.forEach(o => {
+		if(unixEpoch() - o.timestamp >= 300){
+			temp.splice(temp.indexOf(o), 1);
+		}
+	})
+}, the_interval);
+
