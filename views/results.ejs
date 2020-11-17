@@ -21,14 +21,14 @@
 							<input type="text" class="form-control" id="access_token" name="access_token"
 								aria-describedby="access_token" value="<%= data.access_token %>" disabled>
 						</div>
-						<% if(data.refresh_token != null) { %> 
+						<% if(data.refresh_token != null) { %>
 						<div class="form-group">
 							<label for="refresh_token">REFRESH TOKEN</label>
 							<input type="text" class="form-control" id="refresh_token" name="refresh_token"
 								aria-describedby="refresh_token" value="<%= data.refresh_token %>" disabled>
 						</div>
 						<% } %>
-						<% if(data.scopes != null) { %> 
+						<% if(data.scopes != null) { %>
 						<div class="form-group">
 							<label for="scope_list">SCOPES</label>
 							<input type="text" class="form-control" id="scope_list" name="scope_list"
@@ -39,6 +39,17 @@
 							<label for="expires_at">EXPIRES AT</label>
 							<input type="text" class="form-control" id="expires_at" name="expires_at"
 								aria-describedby="expires_at" value="<%= data.expires_at %>" disabled>
+							<small id="scope_list_help" class="form-text text-muted"><a data-toggle="collapse"
+									href="#showDate" role="button" aria-expanded="false" aria-controls="showScopes">
+									See
+								</a> human readable date.</small>
+
+							<div class="collapse" id="showDate">
+
+								<input type="text" class="form-control" id="redirect_uri"
+									value="<%= data.expires_at_human_readable %>" disabled>
+
+							</div>
 						</div>
 					</form>
 					<% } %>

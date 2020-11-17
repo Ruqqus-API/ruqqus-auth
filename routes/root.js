@@ -38,7 +38,7 @@ module.exports = {
 
 			needle.post('https://ruqqus.com/oauth/grant', r, function (err, resp, body) {
 				if (err) throw (err);
-				body.expires_at = new Date(body.expires_at * 1000)
+				body.expires_at_human_readable = new Date(body.expires_at * 1000)
 				res.render("results", { data: body });
 			});
 		})
@@ -56,7 +56,7 @@ module.exports = {
 
 			needle.post('https://ruqqus.com/oauth/grant', r, function (err, resp, body) {
 				if (err) throw (err);
-				body.expires_at = new Date(body.expires_at * 1000)
+				body.expires_at_human_readable = new Date(body.expires_at * 1000)
 				temp.splice(temp.indexOf(data), 1);
 				res.render("results", { data: body });
 			});
