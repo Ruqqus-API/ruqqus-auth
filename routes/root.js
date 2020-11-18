@@ -56,7 +56,6 @@ module.exports = {
 
 			needle.post('https://ruqqus.com/oauth/grant', r, function (err, resp, body) {
 				if (err) throw (err);
-				body.expires_at_human_readable = new Date(body.expires_at * 1000)
 				temp.splice(temp.indexOf(data), 1);
 
 				res.redirect(url.format({
@@ -66,7 +65,7 @@ module.exports = {
 						"refresh_token": body.refresh_token,
 						"scopes": body.scopes,
 						"expires_at": body.expires_at,
-						"expires_at_human_readable": body.expires_at_human_readable
+						"expires_at_human_readable": Date(body.expires_at * 1000)
 					}
 				}))
 
