@@ -1,6 +1,7 @@
 const { getAuthURL } = require("ruqqus-js");
 const { v4: uuidv4 } = require('uuid');
 const needle = require('needle');
+const url = require('url');
 
 const temp = []
 
@@ -57,24 +58,49 @@ module.exports = {
 				if (err) throw (err);
 				body.expires_at_human_readable = new Date(body.expires_at * 1000)
 				temp.splice(temp.indexOf(data), 1);
-				res.render("results", { data: body });
+
+				res.redirect(url.format({
+					pathname: "/results",
+					query: {
+						"access_token": body.access_token,
+						"refresh_token": body.refresh_token,
+						"scopes": body.scopes,
+						"expires_at": body.expires_at,
+						"expires_at_human_readable": body.expires_at_human_readable
+					}
+				}))
+
 			});
+		})
+
+		router.get("/results", (req, res) => {
+
+			const { access_token, refresh_token, scopes, expires_at, expires_at_human_readable } = req.query
+			const data = {
+				access_token: access_token,
+				refresh_token: refresh_token,
+				scopes: scopes,
+				expires_at: expires_at,
+				expires_at_human_readable: expires_at_human_readable
+			}
+
+			res.render("results", { data: data });
+
 		})
 		return router;
 	},
 };
 
 
-function unixEpoch(){
+function unixEpoch() {
 	return Math.floor(new Date().getTime() / 1000)
 }
 
 // Every minute check if the user session expired, if so delete it (user session lasts for 5 minutes)
 const minutes = 1, the_interval = minutes * 60 * 1000;
 setInterval(function () {
-	console.log("check")
 	temp.forEach(o => {
-		if(unixEpoch() - o.timestamp >= 300){
+		if (unixEpoch() - o.timestamp >= 300) {
 			temp.splice(temp.indexOf(o), 1);
 		}
 	})

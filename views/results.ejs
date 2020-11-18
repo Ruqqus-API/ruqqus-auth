@@ -39,7 +39,7 @@
 						</div>
 						<% } %>
 						<div class="form-group">
-							<label for="expires_at">EXPIRES AT</label>
+							<label for="expires_at">EXPIRES AT <small>(UNIX)</small></label>
 							<input type="text" class="form-control copy-link" id="expires_at" name="expires_at"
 								aria-describedby="expires_at" value="<%= data.expires_at %>"
 								data-clipboard-text="<%= data.expires_at %>" role="button" readonly="readonly">
@@ -60,8 +60,6 @@
 						</div>
 					</form>
 					<% } %>
-
-
 
 				</div>
 			</div>
