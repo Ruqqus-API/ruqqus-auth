@@ -3,6 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const app = express();
+require('dotenv').config();
 
 app.set('views', [path.join(__dirname, 'views'), path.join(__dirname, 'views/partials/')]);
 app.set('view engine', 'ejs');
