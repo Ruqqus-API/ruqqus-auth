@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm fixed-top navbar-light">
+<nav class="navbar navbar-expand-sm navbar-light">
 	<div class="container">
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
 			<span class="navbar-toggler-icon"></span>
@@ -26,22 +26,3 @@
 		</div>
 	</div>
 </nav>
-
-<script>
-	$(document).ready(function () {
-
-
-		$(window).scroll(function () {
-			var scroll = $(window).scrollTop();
-			if (scroll >= $(window).height()) {
-				$(".navbar").addClass("bg-light");
-				$(".nav-link").removeClass("text-white");
-			} else {
-				$(".navbar").removeClass("bg-light");
-				$(".nav-link").addClass("text-white");
-			}
-		});
-
-
-	});
-</script>

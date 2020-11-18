@@ -1,7 +1,6 @@
-const { getAuthURL } = require('ruqqus-js');
 const { v4: uuidv4 } = require('uuid');
-const needle = require('needle');
 const url = require('url');
+const Ruqqus = require('ruqqus-js')
 
 const temp = []
 
@@ -17,7 +16,7 @@ module.exports = {
 
 			temp.push({ uuid: state_token, client_secret: client_secret, client_id: client_id, timestamp: unixEpoch() })
 
-			res.redirect(getAuthURL({
+			res.redirect(Ruqqus.getAuthURL({
 				id: client_id,
 				redirect: 'https://ruqqus-auth.glitch.me/redirect',
 				state: state_token,
@@ -29,49 +28,50 @@ module.exports = {
 		router.post('/refresh', (req, res) => {
 			const { client_secret, client_id, refresh_token } = req.body;
 
-			var r = {
-				client_id: client_id,
-				client_secret: client_secret,
-				grant_type: 'refresh',
-				refresh_token: refresh_token,
-			}
+			Ruqqus.fetchTokens({
+				id: client_id,
+				token: client_secret,
+				type: "code/refresh",
+				refresh: refresh_token
+			}).then(response => {
+				response.expires_at_human_readable = new Date(response.expires_at * 1000)
+				res.render('results', { data: response });
+			}).catch(err => {
+				console.log(err)
+				throw (err);
+			})
 
-			needle.post('https://ruqqus.com/oauth/grant', r, function (err, resp, body) {
-				if (err) throw (err);
-				body.expires_at_human_readable = new Date(body.expires_at * 1000)
-				res.render('results', { data: body });
-			});
 		})
 
 		router.get('/redirect', (req, res) => {
 			const { code, state } = req.query
 			var data = temp.find(d => d.uuid == state);
 
-			if(!data) throw({status: 401, message: 'Unauthorized!', detail: 'Your session most likely expired (5 minutes)'})
+			if (!data) throw ({ status: 401, message: 'Unauthorized!', detail: 'Your session most likely expired (5 minutes)' })
 
-			var r = {
-				client_id: data.client_id,
-				client_secret: data.client_secret,
-				grant_type: 'code',
-				code: code,
-			}
+			Ruqqus.fetchTokens({
+				id: data.client_id,
+				token: data.client_secret,
+				type: "code",
+				code: code
 
-			needle.post('https://ruqqus.com/oauth/grant', r, function (err, resp, body) {
-				if (err) throw (err);
-				temp.splice(temp.indexOf(data), 1);
-
+			}).then(response => {
+				temp.splice(temp.indexOf(response), 1);
 				res.redirect(url.format({
 					pathname: '/results',
 					query: {
-						'access_token': body.access_token,
-						'refresh_token': body.refresh_token,
-						'scopes': body.scopes,
-						'expires_at': body.expires_at,
-						'expires_at_human_readable': Date(body.expires_at * 1000)
+						'access_token': response.access_token,
+						'refresh_token': response.refresh_token,
+						'scopes': response.scopes,
+						'expires_at': response.expires_at,
+						'expires_at_human_readable': Date(response.expires_at * 1000)
 					}
 				}))
+			}).catch(err => {
+				console.log(err)
+				throw (err);
+			})
 
-			});
 		})
 
 		router.get('/results', (req, res) => {
