@@ -13,7 +13,13 @@ module.exports = {
 		})
 		router.post('/auth', (req, res) => {
 			const state_token = uuidv4();
-			var { client_secret, client_id, scope_list } = req.body;
+			var { client_secret, client_id, custom_uri, scope_list, } = req.body;
+
+			var redirect = 'https://ruqqus-auth.glitch.me/redirect'
+			if (custom_uri) {
+				redirect = custom_uri
+				temp.push({ uuid: state_token, client_secret, client_id, timestamp: unixEpoch() })
+			}
 
 			scope_list = scope_list.replace(/\s+/g, '')
 
@@ -23,11 +29,9 @@ module.exports = {
 				}
 			})
 
-			temp.push({ uuid: state_token, client_secret: client_secret, client_id: client_id, timestamp: unixEpoch() })
-
 			res.redirect(Ruqqus.getAuthURL({
 				id: client_id,
-				redirect: 'https://ruqqus-auth.glitch.me/redirect',
+				redirect: redirect,
 				state: state_token,
 				scopes: scope_list,
 				permanent: true
@@ -84,17 +88,7 @@ module.exports = {
 		})
 
 		router.get('/results', (req, res) => {
-
-			const { access_token, refresh_token, scopes, expires_at, expires_at_human_readable } = req.query
-			const data = {
-				access_token: access_token,
-				refresh_token: refresh_token,
-				scopes: scopes,
-				expires_at: expires_at,
-				expires_at_human_readable: expires_at_human_readable
-			}
-
-			res.render('results', { data: data });
+			res.render('results', { data: req.query });
 
 		})
 		return router;
