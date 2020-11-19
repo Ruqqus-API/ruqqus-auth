@@ -11,17 +11,4 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a1d34eb7b8.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
-<script>
-	window.onload = function () {
-		var clipboard = new ClipboardJS('.copy-link');
-
-		clipboard.on('success', function (e) {
-			$('.toast').toast('show')
-			console.log(e);
-		});
-
-		clipboard.on('error', function (e) {
-			console.log(e);
-		});
-	}
-</script>
+<script src="/scripts.js"></script>

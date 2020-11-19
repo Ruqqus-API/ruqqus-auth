@@ -40,7 +40,7 @@ module.exports = {
 			Ruqqus.fetchTokens({
 				id: client_id,
 				token: client_secret,
-				type: "code/refresh",
+				type: "refresh",
 				refresh: refresh_token
 			}).then(response => {
 				response.expires_at_human_readable = new Date(response.expires_at * 1000)
