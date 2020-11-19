@@ -35,8 +35,9 @@
 			<div class="row">
 				<div class="col-12 card automatic" id="getTokens">
 					<h3>Get your access tokens</h3>
-					<p>Input your app's info. Don't worry, we don't store your data. <small><a href="/help/app_info">Where do I find this info?</a></small></p>
-					
+					<p>Input your app's info. Don't worry, we don't store your data. <small><a
+								href="/help/app_info">Where do I find this info?</a></small></p>
+
 
 					<form action="/auth" method="POST">
 						<div class="form-group">
@@ -68,8 +69,10 @@
 								</a> all of the available scopes.</small>
 							<div class="collapse" id="showScopes">
 
-								<input type="text" class="form-control" id="redirect_uri"
-									value="identity, create, read, update, delete, vote, guildmaster" disabled>
+								<input type="text" class="form-control copy-link" id="redirect_uri"
+									value="identity, create, read, update, delete, vote, guildmaster"
+									data-clipboard-text="https://ruqqus-auth.glitch.me/redirect" role="button"
+									readonly="readonly">
 
 							</div>
 						</div>
@@ -114,4 +117,5 @@
 
 
 <%- include('partials/footer'); -%>
+
 </html>
