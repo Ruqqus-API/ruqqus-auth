@@ -2,6 +2,7 @@ const { v4: uuidv4 } = require('uuid');
 const url = require('url');
 const Ruqqus = require('ruqqus-js')
 
+const scopes = ['identity', 'create', 'read', 'update', 'delete', 'vote', 'guildmaster']
 const temp = []
 
 module.exports = {
@@ -12,7 +13,15 @@ module.exports = {
 		})
 		router.post('/auth', (req, res) => {
 			const state_token = uuidv4();
-			const { client_secret, client_id, scope_list } = req.body;
+			var { client_secret, client_id, scope_list } = req.body;
+
+			scope_list = scope_list.replace(/\s+/g, '')
+
+			scope_list.split(',').forEach(scope => {
+				if (!scopes.includes(scope)) {
+					throw ({ status: 405, message: 'Not allowed!', detail: 'Your scopes are not valid!' })
+				}
+			})
 
 			temp.push({ uuid: state_token, client_secret: client_secret, client_id: client_id, timestamp: unixEpoch() })
 
@@ -20,7 +29,7 @@ module.exports = {
 				id: client_id,
 				redirect: 'https://ruqqus-auth.glitch.me/redirect',
 				state: state_token,
-				scopes: scope_list.replace(/\s+/g, ''),
+				scopes: scope_list,
 				permanent: true
 			}));
 		});
@@ -93,13 +102,11 @@ module.exports = {
 };
 
 
-function unixEpoch() {
-	return Math.floor(new Date().getTime() / 1000)
-}
+const unixEpoch = () => Math.floor(new Date().getTime() / 1000)
 
 // Every minute check if the user session expired, if so delete it (user session lasts for 5 minutes)
 const minutes = 1, the_interval = minutes * 60 * 1000;
-setInterval(function () {
+setInterval(() => {
 	temp.forEach(o => {
 		if (unixEpoch() - o.timestamp >= 300) {
 			temp.splice(temp.indexOf(o), 1);

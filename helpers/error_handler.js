@@ -2,13 +2,13 @@ const express = require("express");
 const tools = require("../helpers/tools.js")
 
 module.exports = (app) => {
-	
-	app.use(function (req, res, next) {
+
+	app.use((req, res, next) => {
 		res.status(404).render('errors/404');
 	});
 
-	app.use(function (err, req, res, next) {
-		
+	app.use((err, req, res, next) => {
+
 		const e = []
 		const error_templates = tools.getFiles(tools.rootPath + "/views/errors")
 		error_templates.forEach(error_template => {
