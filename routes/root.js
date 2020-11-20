@@ -18,6 +18,7 @@ module.exports = {
 			var redirect = 'https://ruqqus-auth.glitch.me/redirect'
 			if (custom_uri) {
 				redirect = custom_uri
+			} else {
 				temp.push({ uuid: state_token, client_secret, client_id, timestamp: unixEpoch() })
 			}
 
