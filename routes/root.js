@@ -13,7 +13,7 @@ module.exports = {
 		})
 		router.post('/auth', (req, res) => {
 			const state_token = uuidv4();
-			var { client_secret, client_id, custom_uri, scope_list, } = req.body;
+			var { client_secret, client_id, custom_uri, scope_list, permanent } = req.body;
 
 			var redirect = 'https://ruqqus-auth.glitch.me/redirect'
 			if (custom_uri) {
@@ -35,7 +35,7 @@ module.exports = {
 				redirect: redirect,
 				state: state_token,
 				scopes: scope_list,
-				permanent: true
+				permanent: Boolean(permanent)
 			}));
 		});
 

@@ -22,7 +22,7 @@
 								aria-describedby="access_token" value="<%= data.access_token %>"
 								data-clipboard-text="<%= data.access_token %>" role="button" readonly="readonly">
 						</div>
-						<% if(data.refresh_token != null) { %>
+						<% if(data.refresh_token != null && data.refresh_token.length > 0) { %>
 						<div class="form-group">
 							<label for="refresh_token">REFRESH TOKEN</label>
 							<input type="text" class="form-control copy-link" id="refresh_token" name="refresh_token"

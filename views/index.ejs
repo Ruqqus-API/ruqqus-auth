@@ -84,6 +84,12 @@
 							</div>
 						</div>
 
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="permanent" name="permanent" checked>
+							<label class="custom-control-label" for="permanent">Permanent access <small>(Uncheck if you don't need permanent access - no <code>refresh_token</code>)</small></label>
+
+						</div>
+						<br>
 						<button type="submit" class="btn btn-primary">Submit</button>
 					</form>
 
@@ -121,7 +127,6 @@
 			<%- include('partials/copied'); -%>
 	</main>
 </body>
-
 
 <%- include('partials/footer'); -%>
 
